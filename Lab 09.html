@@ -38,7 +38,7 @@ attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a hre
 			maxZoom: 20,
 			ext: 'png'
 			}).addTo(map);
-            $.getJSON("https://rshepard2.github.io/city.geojson")
+            $.getJSON("https://mmolnar9.github.io/city.geojson")
             .done(function(data) {
                 var info = processData(data);
                 createPropSymbols(info.timestamps, data);
@@ -128,7 +128,7 @@ sliderControl.onAdd = function(map) {
     });
   // Define the labels of the time slider as an array of strings
   // Modify this for your data
-  var labels = ["1950", "1960", "1970", "1980", "1990", "2000", "2010"];
+  var labels = ["1950", "1960", "1970", "1980", "1990", "2000", "2010", "2020"];
         <!-- $(slider).mousedown(function () { -->
           <!-- map.dragging.disable(); -->
       <!-- }); -->
@@ -167,29 +167,29 @@ createTimeLabel("1950"); //The starting timestamp label
     }
     temporalLegend.addTo(map);
   }
-   // function to update/resize each circle marker according to value in the time series
+   
    function updatePropSymbols(timestamp) {
 
-cities.eachLayer(function(layer) {  // eachLayer() is an Leaflet function to iterate over the layers/points of the map
-    var props = layer.feature.properties;   // attributes
-    var radius = calcPropRadius(props[timestamp]); // circle radius, calculation function defined below
+cities.eachLayer(function(layer) {  
+    var props = layer.feature.properties;   
+    var radius = calcPropRadius(props[timestamp]); 
 
-// pop-up information (when mouseover) for each city is also defined here
+
    var popupContent = props.name + ' ' + timestamp + ' population: ' + String(props[timestamp]);
 
-    layer.setRadius(radius);  // Leaflet method for setting the radius of a circle
-    layer.bindPopup(popupContent, { offset: new L.Point(0,-radius) }); // bind the popup content, with an offset
+    layer.setRadius(radius);  
+    layer.bindPopup(popupContent, { offset: new L.Point(0,-radius) }); 
 });
 }
 
-// calculate the radius of the proportional symbols based on area
+
 function calcPropRadius(attributeValue) {
 
-var scaleFactor = 0.001;   // the scale factor is used to scale the values; the units of the radius are in meters
-                           // you may determine the scale factor accordingly based on the range of the values and the mapping scale
+var scaleFactor = 0.001;   
+                           
 var area = attributeValue * scaleFactor;
 
-return Math.sqrt(area/Math.PI);  // the function return the radius of the circle to be used in the updatePropSymbols()
+return Math.sqrt(area/Math.PI);  
 }
 
       </script>
